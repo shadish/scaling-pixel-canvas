@@ -6,9 +6,9 @@ body {
   font-family: sans-serif;
 }
 
-.app {
+#app {
 	border: 1px dotted red;
-	display: block;
+	display: flex;
 	height: 100%;
 }
 
