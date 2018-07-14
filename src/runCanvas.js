@@ -9,17 +9,31 @@ function getCanvas() {
 	return document.getElementById('sprite-canvas')
 }
 
+function lerp(a,b,t) {
+	let result = (1-t) * a + t * b
+	console.log("for:", a, b, t, "gets", Math.round(result))
+	return Math.round(result)
+}
+
 function drawPixels() {
 	let c = getCanvas()
 	var ctx = c.getContext("2d");
 
+	let pixel = 20;
+	let size = { width: c.width, height: c.height}
 	let res = { width: 30, height: 30 }
 
-	let pixel = 20;
+	let maxX = res.width * pixel
+	let maxY = res.height * pixel
 
-	for(let x = 0; x < res.width * pixel; x += pixel) {
-		for(let y = 0; y < res.height * pixel; y += pixel) {
-			ctx.fillStyle = `#${99-x}${y}${x}`
+	for(let x = 0; x < maxX; x += pixel) {
+		for(let y = 0; y < maxY; y += pixel) {
+			let red = lerp(0,99,x/maxX)
+			red = red < 10 ? "0"+red : red
+			let green = lerp(0,99, y/maxY)
+			green = green < 10 ? "0"+green : green
+			ctx.fillStyle = `#${red}${green}00`
+			console.log("ctx:",ctx.fillStyle)
 			ctx.fillRect(x,y,pixel,pixel)
 		}
 	}
