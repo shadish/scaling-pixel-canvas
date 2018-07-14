@@ -14,22 +14,38 @@ function lerp(a,b,t) {
 	return Math.round(result)
 }
 
+function getPixels(pixelSize) {
+	let c = getCanvas()
+
+	let xArray = []
+
+	for(let x = 0; x <= c.width; x += pixelSize)
+	{
+		let yArray = []
+		for(let y = 0; y <= c.width; y += pixelSize) {
+			let xColor = lerp(0,255,x/c.width)
+			let yColor = lerp(0,255,y/c.width)
+			yArray.push(`rgba(${yColor},0,${xColor},1)`)
+		}
+		xArray.push(yArray)
+	}
+
+	return xArray
+}
+
 function drawPixels() {
 	let c = getCanvas()
 	var ctx = c.getContext("2d");
 
 	let pixel = 16;
+
+	let pixels = getPixels(pixel)
 	let max = c.width
 
-	for(let x = 0; x <= max; x += pixel) {
-		for(let y = 0; y <= max; y += pixel) {
-			let xColor = lerp(0,255,x/max)
-			let yColor = lerp(0,255,y/max)
-			ctx.fillStyle = `rgba(${xColor},0,${yColor},1)`
-			if(y > 250) { 
-				console.log(x,y,'::',pixel)
-			}
-			ctx.fillRect(x,y,pixel,pixel)
+	for(let x = 0; x < pixels.length; x++) {
+		for(let y = 0; y < pixels[x].length; y++) {
+			ctx.fillStyle = pixels[x][y]
+			ctx.fillRect(x*pixel,y*pixel,pixel,pixel)
 		}
 	}
 }
