@@ -34,10 +34,11 @@ function getPixels(pixelSize) {
 }
 
 function drawSprite(pixels) {
-	let position = {x: 10, y:10}
+	let position = {x: 10, y:20}
 	let sprite =
 	[
-		['#FFF','#000','#000','#000'],
+		['#A00',null, null,'#A00'],
+		['#000','#000','#000','#000'],
 		['#000','#0F0','#000','#0F0'],
 		['#000','#000','#000','#000'],
 		['#000','#000','#F00','#000']
@@ -45,12 +46,10 @@ function drawSprite(pixels) {
 
 	for(let x = 0; x < sprite.length; x++) {
 		for(let y = 0; y < sprite[x].length; y++) {
-			// console.log("x:", x, "y:", y)
 			let newValue = sprite[x][y]
 			if(newValue) {
-				pixels[x+position.x][y+position.y] = newValue
+				pixels[y+position.x][x+position.y] = newValue
 			}
-			// console.log("replace", pixels[x+position.x][y+position.y], 'with', sprite[x][y])
 		}
 	}
 
