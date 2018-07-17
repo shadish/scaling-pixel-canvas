@@ -3,9 +3,16 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
-import {setupCanvas} from './runCanvas'
+import { setup, tick } from './runCanvas'
 
 ReactDOM.render(<App />, document.getElementById('root'))
 registerServiceWorker()
 
-setupCanvas()
+// Initialize and draw immediately.
+setup()
+tick()
+
+// window.setInterval(function() {
+//     tick(), 1000 / 10 // 10 fps
+// })
+

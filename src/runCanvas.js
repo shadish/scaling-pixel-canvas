@@ -1,8 +1,18 @@
-function setupCanvas() {
+import orcSprite from './orcSprite'
+import Viewport from './Viewport'
+
+const DEFAULT_CANVAS_SIZE = 512
+let viewport
+
+export const setup = () => {
 	let body = document.getElementsByTagName("BODY")[0];
+	viewport = new Viewport(getCanvas())
 	body.onresize = resize
-	resize()
-	// drawPixels()
+	resize(false)
+}
+
+export const tick = () => {
+	drawPixels()
 }
 
 function getCanvas() {
@@ -33,15 +43,8 @@ function getPixels(pixelSize) {
 }
 
 function drawSprite(pixels, position) {
-	let sprite =
-		[
-			['#0A0', null, null, '#0A0'],
-			['#0F0', '#0A0', '#0A0', '#0F0'],
-			['#0F0', '#FF0', '#0F0', '#FF0'],
-			['#0F0', '#0F0', '#0F0', '#0F0', '#0F0'],
-			['#0A0', '#0F0', '#C00', '#F00', '#0F0'],
-			['#0A0', '#0F0', '#0F0', '#0F0']
-		]
+	let sprite = orcSprite()
+
 
 	for (let x = 0; x < sprite.length; x++) {
 		for (let y = 0; y < sprite[x].length; y++) {
@@ -56,35 +59,33 @@ function drawSprite(pixels, position) {
 }
 
 function drawPixels() {
-	let c = getCanvas()
-	var ctx = c.getContext("2d");
+	// let c = getCanvas()
+	// var ctx = c.getContext("2d");
 
-	let pixel = 8;
+	// let pixel = 8;
 
-	let pixels = getPixels(pixel)
+	viewport.pixels = getPixels(viewport.pixel)
 	let position = { x: 10, y: 20 }
-	pixels = drawSprite(pixels, position)
+	viewport.pixels = drawSprite(viewport.pixels, position)
 
-	for (let x = 0; x < pixels.length; x++) {
-		for (let y = 0; y < pixels[x].length; y++) {
-			ctx.fillStyle = pixels[x][y]
-			ctx.fillRect(x * pixel, y * pixel, pixel, pixel)
+	for (let x = 0; x < viewport.pixels.length; x++) {
+		for (let y = 0; y < viewport.pixels[x].length; y++) {
+			viewport.ctx.fillStyle = viewport.pixels[x][y]
+			viewport.ctx.fillRect(x * viewport.pixel, y * viewport.pixel, viewport.pixel, viewport.pixel)
 		}
 	}
 }
 
-function resize() {
+function resize(sampleWindow) {
 	let app = document.getElementById('app')
 	let canvas = getCanvas()
-	//temp: do not resize
-	// app.style.height = `${window.innerHeight-2}px`
-	// canvas.width = `${window.innerHeight-4}`
-	// canvas.height = `${window.innerHeight-4}`
-	canvas.width = 512
-	canvas.height = canvas.width
-	drawPixels()
-}
 
-module.exports = {
-	setupCanvas
+	if (sampleWindow) {
+		app.style.height = `${window.innerHeight - 2}px`
+		canvas.width = `${window.innerHeight - 4}`
+		canvas.height = `${window.innerHeight - 4}`
+	} else {
+		canvas.width = DEFAULT_CANVAS_SIZE
+		canvas.height = canvas.width
+	}
 }
