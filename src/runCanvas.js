@@ -45,7 +45,6 @@ function getPixels(pixelSize) {
 function drawSprite(pixels, position) {
 	let sprite = orcSprite()
 
-
 	for (let x = 0; x < sprite.length; x++) {
 		for (let y = 0; y < sprite[x].length; y++) {
 			let newValue = sprite[x][y]
@@ -58,14 +57,16 @@ function drawSprite(pixels, position) {
 	return pixels
 }
 
+let time = 0
+
 function drawPixels() {
-	// let c = getCanvas()
-	// var ctx = c.getContext("2d");
-
-	// let pixel = 8;
-
 	viewport.pixels = getPixels(viewport.pixel)
-	let position = { x: 10, y: 20 }
+	time += 0.05
+	let middle = (viewport.pixels.length / 2) - 4
+	let sin = Math.sin(time)
+	let animX = Math.round(middle + sin*25)
+
+	let position = { x: animX, y: 20 }
 	viewport.pixels = drawSprite(viewport.pixels, position)
 
 	for (let x = 0; x < viewport.pixels.length; x++) {

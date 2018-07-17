@@ -12,7 +12,8 @@ registerServiceWorker()
 setup()
 tick()
 
-// window.setInterval(function() {
-//     tick(), 1000 / 10 // 10 fps
-// })
+window.setInterval(function () {
+    tick()
+}, 1000 / 30)
+
 
