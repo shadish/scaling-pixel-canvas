@@ -9,8 +9,8 @@ function getCanvas() {
 	return document.getElementById('sprite-canvas')
 }
 
-function lerp(a,b,t) {
-	let result = (1-t) * a + t * b
+function lerp(a, b, t) {
+	let result = (1 - t) * a + t * b
 	return Math.round(result)
 }
 
@@ -19,12 +19,11 @@ function getPixels(pixelSize) {
 
 	let xArray = []
 
-	for(let x = 0; x <= c.width; x += pixelSize)
-	{
+	for (let x = 0; x <= c.width; x += pixelSize) {
 		let yArray = []
-		for(let y = 0; y <= c.width; y += pixelSize) {
-			let xColor = lerp(0,255,x/c.width)
-			let yColor = lerp(0,255,y/c.width)
+		for (let y = 0; y <= c.width; y += pixelSize) {
+			let xColor = lerp(0, 255, x / c.width)
+			let yColor = lerp(0, 255, y / c.width)
 			yArray.push(`rgba(${yColor},0,${xColor},1)`)
 		}
 		xArray.push(yArray)
@@ -33,23 +32,22 @@ function getPixels(pixelSize) {
 	return xArray
 }
 
-function drawSprite(pixels) {
-	let position = {x: 10, y:20}
+function drawSprite(pixels, position) {
 	let sprite =
-	[
-		['#0A0',null, null,'#0A0'],
-		['#0F0','#0A0','#0A0','#0F0'],
-		['#0F0','#FF0','#0F0','#FF0'],
-		['#0F0','#0F0','#0F0','#0F0','#0F0'],
-		['#0A0','#0F0','#C00','#F00','#0F0'],
-		['#0A0','#0F0','#0F0','#0F0']
-	]
+		[
+			['#0A0', null, null, '#0A0'],
+			['#0F0', '#0A0', '#0A0', '#0F0'],
+			['#0F0', '#FF0', '#0F0', '#FF0'],
+			['#0F0', '#0F0', '#0F0', '#0F0', '#0F0'],
+			['#0A0', '#0F0', '#C00', '#F00', '#0F0'],
+			['#0A0', '#0F0', '#0F0', '#0F0']
+		]
 
-	for(let x = 0; x < sprite.length; x++) {
-		for(let y = 0; y < sprite[x].length; y++) {
+	for (let x = 0; x < sprite.length; x++) {
+		for (let y = 0; y < sprite[x].length; y++) {
 			let newValue = sprite[x][y]
-			if(newValue) {
-				pixels[y+position.x][x+position.y] = newValue
+			if (newValue) {
+				pixels[y + position.x][x + position.y] = newValue
 			}
 		}
 	}
@@ -61,17 +59,16 @@ function drawPixels() {
 	let c = getCanvas()
 	var ctx = c.getContext("2d");
 
-	let pixel = 16;
+	let pixel = 8;
 
 	let pixels = getPixels(pixel)
-	pixels = drawSprite(pixels)
+	let position = { x: 10, y: 20 }
+	pixels = drawSprite(pixels, position)
 
-	let max = c.width
-
-	for(let x = 0; x < pixels.length; x++) {
-		for(let y = 0; y < pixels[x].length; y++) {
+	for (let x = 0; x < pixels.length; x++) {
+		for (let y = 0; y < pixels[x].length; y++) {
 			ctx.fillStyle = pixels[x][y]
-			ctx.fillRect(x*pixel,y*pixel,pixel,pixel)
+			ctx.fillRect(x * pixel, y * pixel, pixel, pixel)
 		}
 	}
 }
