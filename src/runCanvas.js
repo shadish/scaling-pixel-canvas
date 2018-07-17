@@ -1,23 +1,21 @@
 import orcSprite from './orcSprite';
 import Viewport from './Viewport';
-
-const DEFAULT_CANVAS_SIZE = 512;
-let viewport;
+import { getCanvas, resize } from './canvasUtils';
+import InputControl from './InputControl';
 
 export const setup = () => {
   let body = document.getElementsByTagName('BODY')[0];
-  viewport = new Viewport(getCanvas());
+
+  window.inputControl = new InputControl();
+  window.viewport = new Viewport(getCanvas());
+
   body.onresize = resize;
-  resize(false);
+  resize(true);
 };
 
 export const tick = () => {
   drawPixels();
 };
-
-function getCanvas() {
-  return document.getElementById('sprite-canvas');
-}
 
 function lerp(a, b, t) {
   let result = (1 - t) * a + t * b;
@@ -42,8 +40,9 @@ function getPixels(pixelSize) {
   return xArray;
 }
 
-function drawSprite(pixels, position) {
+function drawSprite(pixels) {
   let sprite = orcSprite();
+  let position = window.inputControl.position;
 
   for (let x = 0; x < sprite.length; x++) {
     for (let y = 0; y < sprite[x].length; y++) {
@@ -57,41 +56,16 @@ function drawSprite(pixels, position) {
   return pixels;
 }
 
-let time = 0;
-
 function drawPixels() {
-  viewport.pixels = getPixels(viewport.pixel);
-  time += 0.05;
-  let middle = viewport.pixels.length / 2 - 4;
-  let sin = Math.sin(time);
-  let animX = Math.round(middle + sin * 25);
+  window.viewport.pixels = getPixels(window.viewport.pixel);
+  let { pixels, pixel, ctx } = window.viewport;
 
-  let position = { x: animX, y: 20 };
-  viewport.pixels = drawSprite(viewport.pixels, position);
+  pixels = drawSprite(pixels);
 
-  for (let x = 0; x < viewport.pixels.length; x++) {
-    for (let y = 0; y < viewport.pixels[x].length; y++) {
-      viewport.ctx.fillStyle = viewport.pixels[x][y];
-      viewport.ctx.fillRect(
-        x * viewport.pixel,
-        y * viewport.pixel,
-        viewport.pixel,
-        viewport.pixel
-      );
+  for (let x = 0; x < pixels.length; x++) {
+    for (let y = 0; y < pixels[x].length; y++) {
+      ctx.fillStyle = pixels[x][y];
+      ctx.fillRect(x * pixel, y * pixel, pixel, pixel);
     }
-  }
-}
-
-function resize(sampleWindow) {
-  let app = document.getElementById('app');
-  let canvas = getCanvas();
-
-  if (sampleWindow) {
-    app.style.height = `${window.innerHeight - 2}px`;
-    canvas.width = `${window.innerHeight - 4}`;
-    canvas.height = `${window.innerHeight - 4}`;
-  } else {
-    canvas.width = DEFAULT_CANVAS_SIZE;
-    canvas.height = canvas.width;
   }
 }

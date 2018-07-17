@@ -12,6 +12,6 @@ registerServiceWorker();
 setup();
 tick();
 
-window.setInterval(function() {
-  tick();
-}, 1000 / 30);
+// window.setInterval(function() {
+//   tick();
+// }, 1000 / 30);
