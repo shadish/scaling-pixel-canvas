@@ -11,9 +11,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pretty": "prettier --single-quote -l --write \"src/**/*.js*\""
+
   },
   "devDependencies": {
-    "eslint": "^5.1.0"
+    "eslint": "^5.1.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "prettier": "^1.13.7"
   }
 }
