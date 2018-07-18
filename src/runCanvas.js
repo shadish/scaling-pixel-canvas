@@ -22,6 +22,8 @@ function lerp(a, b, t) {
   return Math.round(result);
 }
 
+let green = 0;
+
 function getPixels(pixelSize) {
   let c = getCanvas();
 
@@ -30,9 +32,14 @@ function getPixels(pixelSize) {
   for (let x = 0; x <= c.width; x += pixelSize) {
     let yArray = [];
     for (let y = 0; y <= c.width; y += pixelSize) {
-      let xColor = lerp(0, 255, x / c.width);
-      let yColor = lerp(0, 255, y / c.width);
-      yArray.push(`rgba(${yColor},0,${xColor},1)`);
+            
+      green = green >= 50 ? 0 : green + 0.05
+      let gColor = Math.round(green)
+
+      let xColor = lerp(0, 255, x / c.width)-gColor;
+      let yColor = lerp(0, 255, y / c.width)-gColor;
+
+      yArray.push(`rgba(${yColor},${gColor},${xColor},1)`);
     }
     xArray.push(yArray);
   }
