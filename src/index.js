@@ -12,6 +12,13 @@ registerServiceWorker();
 setup();
 tick();
 
-window.setInterval(function() {
+// window.setInterval(function() {
+//   tick();
+// }, 1000 / 10);
+
+function animStep(timestamp) {
   tick();
-}, 1000 / 10);
+  requestAnimationFrame(animStep);
+}
+
+requestAnimationFrame(animStep);

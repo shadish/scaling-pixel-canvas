@@ -1,4 +1,4 @@
 export default {
   canvasSize: 512,
-  pixelSize: 8
+  pixelSize: 16
 };
