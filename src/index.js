@@ -12,9 +12,12 @@ registerServiceWorker();
 setup();
 tick();
 
-function animStep(timestamp) {
-  tick();
-  requestAnimationFrame(animStep);
-}
+// Begin animation loop. Note: still need to determine the most effecient draw cycle.
+window.setInterval(tick, 1000 / 10);
 
-requestAnimationFrame(animStep);
+// function animStep(timestamp) {
+//   tick();
+//   requestAnimationFrame(animStep);
+// }
+
+// requestAnimationFrame(animStep);

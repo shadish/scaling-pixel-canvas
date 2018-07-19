@@ -1,13 +1,21 @@
-import demon from './sprites/demon';
+import Demon from './sprites/Demon';
 import Viewport from './Viewport';
 import { getCanvas, resize } from './canvasUtils';
 import InputControl from './InputControl';
+import Hero from './sprites/Hero';
 
 export const setup = () => {
   let body = document.getElementsByTagName('BODY')[0];
 
-  window.inputControl = new InputControl();
   window.viewport = new Viewport(getCanvas());
+
+  window.sprites = {
+    demon: new Demon(),
+    hero: new Hero()
+  }
+
+  window.demon = new Demon();
+  window.hero = new Hero();
 
   body.onresize = resize;
   resize(true);
@@ -47,27 +55,13 @@ function getPixels(pixelSize) {
   return xArray;
 }
 
-function drawSprite(pixels) {
-  let sprite = demon();
-  let position = window.inputControl.position;
-
-  for (let x = 0; x < sprite.length; x++) {
-    for (let y = 0; y < sprite[x].length; y++) {
-      let newValue = sprite[x][y];
-      if (newValue) {
-        pixels[y + position.x][x + position.y] = newValue;
-      }
-    }
-  }
-
-  return pixels;
-}
-
 function drawPixels() {
   window.viewport.pixels = getPixels(window.viewport.pixel);
   let { pixels, pixel, ctx } = window.viewport;
 
-  pixels = drawSprite(pixels);
+  Object.keys(window.sprites).forEach(key => {
+    pixels = window.sprites[key].render(pixels);
+  });
 
   for (let x = 0; x < pixels.length; x++) {
     for (let y = 0; y < pixels[x].length; y++) {
