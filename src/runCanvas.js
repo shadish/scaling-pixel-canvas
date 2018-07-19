@@ -1,7 +1,6 @@
 import Demon from './sprites/Demon';
 import Viewport from './Viewport';
 import { getCanvas, resize } from './canvasUtils';
-import InputControl from './InputControl';
 import Hero from './sprites/Hero';
 
 export const setup = () => {
