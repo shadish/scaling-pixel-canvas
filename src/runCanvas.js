@@ -12,7 +12,7 @@ export const setup = () => {
   window.sprites = {
     demon: new Demon(),
     hero: new Hero()
-  }
+  };
 
   window.demon = new Demon();
   window.hero = new Hero();
