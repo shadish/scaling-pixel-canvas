@@ -1,4 +1,4 @@
-import orcSprite from './orcSprite';
+import demon from './sprites/demon';
 import Viewport from './Viewport';
 import { getCanvas, resize } from './canvasUtils';
 import InputControl from './InputControl';
@@ -32,7 +32,8 @@ function getPixels(pixelSize) {
   for (let x = 0; x <= c.width; x += pixelSize) {
     let yArray = [];
     for (let y = 0; y <= c.width; y += pixelSize) {
-      green = green >= 50 ? 0 : green + 0.05;
+      green = green >= 50 ? 0 : green + 0.8;
+
       let gColor = Math.round(green);
 
       let xColor = lerp(0, 255, x / c.width) - gColor;
@@ -47,7 +48,7 @@ function getPixels(pixelSize) {
 }
 
 function drawSprite(pixels) {
-  let sprite = orcSprite();
+  let sprite = demon();
   let position = window.inputControl.position;
 
   for (let x = 0; x < sprite.length; x++) {

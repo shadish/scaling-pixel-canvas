@@ -1,6 +1,5 @@
 import { getCanvas } from './canvasUtils';
 import canvasConfig from './canvasConfig';
-import { tick } from './runCanvas';
 
 export default class InputControl {
   constructor() {
@@ -28,6 +27,5 @@ export default class InputControl {
       default:
         break;
     }
-    tick();
   };
 }
