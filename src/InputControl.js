@@ -5,12 +5,13 @@ export default class InputControl {
   constructor() {
     document.onkeypress = this.handle;
     let c = getCanvas();
+
     // not actually the middle, but approximately.
     let start = Math.round(c.width / canvasConfig.pixelSize / 2);
     this.position = { x: start, y: start };
   }
 
-  handle = evt => {
+  handle(evt){
     switch (evt.key) {
       case 'ArrowRight':
         this.position.x += 1;
@@ -27,5 +28,5 @@ export default class InputControl {
       default:
         break;
     }
-  };
+  }
 }
