@@ -42,8 +42,7 @@ module.exports = {
   output: {
     path: __dirname +'/dist',
     publicPath:'/',
-    filename:'bundle.js',
-    libraryTarget: 'commonjs2'
+    filename:'bundle.js'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
