@@ -17,7 +17,6 @@ export default class Hero extends Sprite {
   }
 
   getPosition() {
-    // console.log("get for:", this.inputControl.position.x)
     return this.inputControl.position;
   }
 }

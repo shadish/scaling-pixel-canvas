@@ -4,7 +4,6 @@ import { getCanvas, resize } from './canvasUtils';
 import Hero from './sprites/Hero';
 
 export const setup = () => {
-  console.log("running setup")
   let body = document.getElementsByTagName('body')[0];
 
   window.viewport = new Viewport(getCanvas());

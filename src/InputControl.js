@@ -3,6 +3,7 @@ import canvasConfig from './canvasConfig';
 
 export default class InputControl {
   constructor() {
+    console.log("use")
     document.onkeypress = this.handle;
     let c = getCanvas();
 
