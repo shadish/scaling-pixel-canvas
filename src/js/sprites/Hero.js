@@ -12,12 +12,5 @@ export default class Hero extends Sprite {
       ['#00F', null, null, null, '#00F'],
       [null, '#00F', '#00F', '#00F', null]
     ];
-
-    console.log("settings")
-    this.inputControl = new InputControl();
-  }
-
-  getPosition() {
-    return this.inputControl.position;
   }
 }
